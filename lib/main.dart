@@ -52,9 +52,9 @@ class MyHomePage extends StatefulWidget {
 
 // "_" no inicio da classe indica para o compilador que essa classe será privada
 class _MyHomePageState extends State<MyHomePage> {
-  final mapPages = {0: GeneratorPage(), 1: Placeholder()};
+  final mapPages = {0: GeneratorPage(), 1: FavoritesPage()};
 
-  var selectedIndex = 0;
+  var selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +128,25 @@ class GeneratorPage extends StatelessWidget {
                   child: Text("Próxima")),
             ],
           )
+        ],
+      ),
+    );
+  }
+}
+
+class FavoritesPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+    var favorites = appState.favorites;
+
+    return Center(
+      child: ListView(
+        children: [
+          ListTile(
+            title: Text("Olá"),
+            leading: Icon(Icons.abc),
+          ),
         ],
       ),
     );
