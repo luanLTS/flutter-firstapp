@@ -58,38 +58,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: [
-          SafeArea(
-            child: NavigationRail(
-              extended: false,
-              destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text("Home"),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.star),
-                  label: Text("Favorites"),
-                ),
-              ],
-              selectedIndex: selectedIndex,
-              onDestinationSelected: (value) {
-                setState(() {
-                  selectedIndex = value;
-                });
-              },
+    return LayoutBuilder(builder: (context, constraints) {
+      return Scaffold(
+        body: Row(
+          children: [
+            SafeArea(
+              child: NavigationRail(
+                extended: constraints.maxWidth >= 600,
+                destinations: [
+                  NavigationRailDestination(
+                    icon: Icon(Icons.home),
+                    label: Text("Home"),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.star),
+                    label: Text("Favorites"),
+                  ),
+                ],
+                selectedIndex: selectedIndex,
+                onDestinationSelected: (value) {
+                  setState(() {
+                    selectedIndex = value;
+                  });
+                },
+              ),
             ),
-          ),
-          Expanded(
-            child: Container(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                child: mapPages[selectedIndex]),
-          )
-        ],
-      ),
-    );
+            Expanded(
+              child: Container(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  child: mapPages[selectedIndex]),
+            )
+          ],
+        ),
+      );
+    });
   }
 }
 
