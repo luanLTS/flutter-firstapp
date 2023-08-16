@@ -2,6 +2,9 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'pages/favorites.dart';
+import 'pages/generator.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -97,112 +100,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     });
-  }
-}
-
-class GeneratorPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
-
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          BigCard(pair: pair),
-          SizedBox(
-            height: 30,
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon(
-                  onPressed: () {
-                    appState.toggleFavorite();
-                  },
-                  icon: FavoriteIcon(),
-                  label: Text('Like')),
-              SizedBox(
-                width: 20,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    appState.getNext();
-                  },
-                  child: Text("Próxima")),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class FavoritesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var favorites = appState.favorites;
-    return ListView(children: [
-      Padding(
-        padding: EdgeInsets.all(20),
-        child: Text("Tap in the word to remove it!"),
-      ),
-      ...favorites
-          .map(
-            (f) => ListTile(
-              onTap: () {
-                appState.removeFavorite(f);
-              },
-              title: Text(f.asUpperCase),
-              leading: Icon(Icons.star),
-            ),
-          )
-          .toList(),
-    ]);
-  }
-}
-
-class FavoriteIcon extends StatelessWidget {
-  const FavoriteIcon({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var current = appState.current;
-    var favorites = appState.favorites;
-    if (favorites.contains(current)) return Icon(Icons.star);
-    return Icon(Icons.star_border);
-  }
-}
-
-class BigCard extends StatelessWidget {
-  const BigCard({
-    super.key,
-    required this.pair,
-  });
-
-  final WordPair pair;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textStyle = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
-    return Card(
-      color: theme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Text(
-          pair.asUpperCase,
-          semanticsLabel: '${pair.first} ${pair.second}',
-          style: textStyle,
-        ),
-      ),
-    );
   }
 }
