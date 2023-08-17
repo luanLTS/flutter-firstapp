@@ -14,6 +14,33 @@ class GeneratorPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(
+            height: 5 * 24,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ListView(
+                    addAutomaticKeepAlives: true,
+                    shrinkWrap: true,
+                    children: [
+                      ListTile(
+                        title: Flex(
+                          direction: Axis.horizontal,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [Icon(Icons.abc), Text("asdadasd")],
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 15,
+          ),
           BigCard(pair: pair),
           SizedBox(
             height: 30,

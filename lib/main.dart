@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
-
   var favorites = <WordPair>[];
+  var history = <ListTile>[];
 
   void getNext() {
     current = WordPair.random();
@@ -51,6 +51,8 @@ class MyAppState extends ChangeNotifier {
     favorites.remove(pair);
     notifyListeners();
   }
+
+  void addPairToHistory(pair) {}
 }
 
 class MyHomePage extends StatefulWidget {
@@ -62,7 +64,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final mapPages = {0: GeneratorPage(), 1: FavoritesPage()};
 
-  var selectedIndex = 1;
+  var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
